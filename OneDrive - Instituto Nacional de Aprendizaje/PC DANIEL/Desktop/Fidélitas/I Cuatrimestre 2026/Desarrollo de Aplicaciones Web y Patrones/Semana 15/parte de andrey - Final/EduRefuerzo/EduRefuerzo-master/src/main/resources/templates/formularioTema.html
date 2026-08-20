@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario Tema</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Datos del Tema</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/tema/guardar}" th:object="${tema}" method="POST">
+                    <input type="hidden" th:field="*{idTema}"/>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" th:field="*{nombre}" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción:</label>
+                        <textarea class="form-control" th:field="*{descripcion}" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">ID Materia:</label>
+                        <input type="number" class="form-control" th:field="*{idMateria}" required/>
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a th:href="@{/tema/listado}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>EduRefuerzo</title>
+
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+        <style>
+
+            body{
+                margin:0;
+                font-family: Arial, Helvetica, sans-serif;
+                background-color:white;
+            }
+
+            /* barra izquierda */
+            .barra-lateral{
+                position:fixed;
+                left:0;
+                top:0;
+                width:200px;
+                height:100%;
+                background-color:#5a5a5a;
+            }
+
+            /* titulo superior */
+            .titulo{
+                position:absolute;
+                top:20px;
+                right:30px;
+                font-size:28px;
+                font-weight:bold;
+                color:#333;
+            }
+
+            /* contenido */
+            .contenido{
+                margin-left:230px;
+                margin-top:80px;
+            }
+
+            /* menu lateral */
+            .menu{
+                margin-top:120px;
+                display:flex;
+                flex-direction:column;
+            }
+
+            .menu-item{
+                color:white;
+                text-decoration:none;
+                padding:15px;
+                font-weight:bold;
+            }
+
+            .menu-item:hover{
+                background-color:#777;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="barra-lateral">
+
+            <div class="menu">
+                <a th:href="@{/}" class="menu-item">Inicio</a>
+                <a th:href="@{/administrador/listado}" class="menu-item">Administradores</a>
+
+                <!-- RF-2 -->
+                <a th:href="@{/estudiante/listado}" class="menu-item">Estudiantes</a>
+
+                <!-- RF-3 -->
+                <a th:href="@{/perfil/listado}" class="menu-item">Perfiles</a>
+
+                <!-- RF-4 -->
+                <a th:href="@{/materia/listado}" class="menu-item">Materias</a>
+
+                <!-- RF-5 -->
+                <a th:href="@{/tema/listado}" class="menu-item">Temas</a>
+
+                <!-- RF-6 -->
+                <a th:href="@{/recurso/listado}" class="menu-item">Recursos</a>
+
+                <!-- RF-7 -->
+                <a th:href="@{/asignacion/listado}" class="menu-item">Asignaciones</a>
+
+                <!-- RF-8 -->
+                <a th:href="@{/favorito/listado}" class="menu-item">Favoritos</a>                
+
+                <!-- RF-10 -->
+                <a th:href="@{/publicacion/listado}" class="menu-item">Publicaciones</a>
+
+                <!-- RF-11 -->
+                <a th:href="@{/contacto/listado}" class="menu-item">Contactos</a>
+                
+                <!-- RF-12 -->
+                <a th:href="@{/chat/listado}" class="menu-item">Chats</a>
+                
+                <!-- RF-13 -->
+                <a th:href="@{/horario/listado}" class="menu-item">Horarios</a>
+                
+                <!-- RF-14 -->
+                <a th:href="@{/materiaFavorita/listado}" class="menu-item">Materias Favoritas</a>
+                
+                <!-- RF-15 -->
+                <a th:href="@{/notaAcademica/listado}" class="menu-item">Notas Académicas</a>
+            </div>
+
+        </div>
+
+        <div class="titulo">
+            EduRefuerzo
+        </div>
+
+        <div class="contenido">
+
+            <h2>Bienvenido al sistema EduRefuerzo</h2>
+
+            <p>
+                Sistema para la gestión de contenido académico.
+            </p>
+
+            <a th:href="@{/administrador/listado}" class="btn btn-primary">
+                Ir a Administradores
+            </a>
+
+            <br><br>
+
+            <!-- Si leen esto es que aun no se si ponerlo o no-->
+            <!-- Si leen esto es que aun no se si ponerlo o no, esto es una prueba 2 -->
+            <!-- acceso directo RF-2 
+            <a th:href="@{/estudiante/listado}" class="btn btn-success">
+            Ir a Estudiantes
+            </a>
+            
+            <!-- acceso directo RF-3 
+            <a th:href="@{/perfil/listado}" class="btn btn-secondary">
+            Ir a Perfiles
+            </a>-->
+           <!-- Si leen estofff es que aun no se si ponerlo o no-->
+
+
+        </div>
+
+    </body>
+</html>

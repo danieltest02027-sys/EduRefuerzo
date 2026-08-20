@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ver Chat</title>
+    <meta charset="UTF-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="mb-4">Detalle del Chat</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>ID Chat:</strong> <span th:text="${chat.idChat}"></span></p>
+            <p><strong>Usuario Origen:</strong> <span th:text="${chat.usuarioOrigen != null ? chat.usuarioOrigen.nombre : ''}"></span></p>
+            <p><strong>Usuario Destino:</strong> <span th:text="${chat.usuarioDestino != null ? chat.usuarioDestino.nombre : ''}"></span></p>
+            <p><strong>Fecha:</strong> <span th:text="${chat.fechaCreacion}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${chat.estado}"></span></p>
+        </div>
+    </div>
+
+    <h4>Mensajes</h4>
+    <table class="table table-bordered table-striped mb-4">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Estudiante</th>
+            <th>Contenido</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${mensajes}">
+            <td th:text="${m.idMensaje}"></td>
+            <td th:text="${m.estudiante != null ? m.estudiante.nombre : ''}"></td>
+            <td th:text="${m.contenido}"></td>
+            <td th:text="${m.fecha}"></td>
+            <td th:text="${m.estado}"></td>
+            <td>
+                <a th:href="@{/chat/modificarMensaje/{idMensaje}/{idChat}(idMensaje=${m.idMensaje},idChat=${chat.idChat})}"
+                   class="btn btn-warning btn-sm">Modificar</a>
+                <a th:href="@{/chat/eliminarMensaje/{idMensaje}/{idChat}(idMensaje=${m.idMensaje},idChat=${chat.idChat})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('¿Desea eliminar este mensaje?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${mensajeEditar != null}">
+        <h4>Modificar Mensaje</h4>
+        <form th:action="@{/chat/actualizarMensaje}" method="post">
+            <input type="hidden" name="idMensaje" th:value="${mensajeEditar.idMensaje}"/>
+            <input type="hidden" name="idChat" th:value="${chat.idChat}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Estudiante que envía</label>
+                <select name="idEstudiante" class="form-control" required>
+                    <option th:value="${chat.usuarioOrigen.idEstudiante}"
+                            th:text="${chat.usuarioOrigen.nombre + ' ' + chat.usuarioOrigen.apellidos}"
+                            th:selected="${mensajeEditar.estudiante != null and mensajeEditar.estudiante.idEstudiante == chat.usuarioOrigen.idEstudiante}">
+                    </option>
+                    <option th:value="${chat.usuarioDestino.idEstudiante}"
+                            th:text="${chat.usuarioDestino.nombre + ' ' + chat.usuarioDestino.apellidos}"
+                            th:selected="${mensajeEditar.estudiante != null and mensajeEditar.estudiante.idEstudiante == chat.usuarioDestino.idEstudiante}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contenido</label>
+                <textarea name="contenido" class="form-control" rows="4" required
+                          th:text="${mensajeEditar.contenido}"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-control">
+                    <option value="Activo" th:selected="${mensajeEditar.estado == 'Activo'}">Activo</option>
+                    <option value="Inactivo" th:selected="${mensajeEditar.estado == 'Inactivo'}">Inactivo</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a th:href="@{/chat/ver/{idChat}(idChat=${chat.idChat})}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+
+    <div th:if="${mensajeEditar == null}">
+        <h4>Nuevo Mensaje</h4>
+        <form th:action="@{/chat/guardarMensaje}" method="post">
+            <input type="hidden" name="idChat" th:value="${chat.idChat}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Estudiante que envía</label>
+                <select name="idEstudiante" class="form-control" required>
+                    <option value="">Seleccione un estudiante</option>
+                    <option th:value="${chat.usuarioOrigen.idEstudiante}"
+                            th:text="${chat.usuarioOrigen.nombre + ' ' + chat.usuarioOrigen.apellidos}">
+                    </option>
+                    <option th:value="${chat.usuarioDestino.idEstudiante}"
+                            th:text="${chat.usuarioDestino.nombre + ' ' + chat.usuarioDestino.apellidos}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contenido</label>
+                <textarea name="contenido" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-control">
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <a th:href="@{/chat/listado}" class="btn btn-secondary">Volver</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>
